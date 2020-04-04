@@ -15,7 +15,7 @@ request.onsuccess = ({ target }) => {
 //create storage for pending items
 request.onupgradeneeded = ({ target }) => {
   const db = target.result;
-  const pendingItem = db.createObjectStore("pendingBudget", { autoIncrement: true });
+  const pendingItem = db.createObjectStore("pending", { autoIncrement: true });
 };
 
 //log errors

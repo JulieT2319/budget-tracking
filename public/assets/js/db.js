@@ -27,9 +27,9 @@ request.onerror = function ({ target }) {
 //save record
 function saveRecord(record) {
   //create budget entry
-  const entry = db.transaction(["pending"], "readwrite");
+  const transaction = db.transaction(["pending"], "readwrite");
   //access storage
-  const store = entry.objectStore("pending");
+  const store = transaction.objectStore("pending");
   //add record to storage
   store.add(record);
 }
@@ -37,9 +37,9 @@ function saveRecord(record) {
 //import online database
 function checkDatabase() {
   //open offline database
-  const entry = db.transaction(["pending"], "readwrite");
+  const transaction = db.transaction(["pending"], "readwrite");
   //access storage
-  const store = entry.objectStore("pending");
+  const store = transaction.objectStore("pending");
   //get records from storage
   const getAll = store.getAll();
 
@@ -54,8 +54,8 @@ function checkDatabase() {
         }
       }).then(response => response.json()).then(() => {
         //clear pending entries from database
-        const entry = db.transaction(["pending"], "readwrite");
-        const store = entry.objectStore("pending");
+        const transaction = db.transaction(["pending"], "readwrite");
+        const store = transaction.objectStore("pending");
         store.clear();
       });
     };
@@ -63,4 +63,4 @@ function checkDatabase() {
 };
 
 //listen for coming online
-window.addEventListener("online", checkDatabase())
+window.addEventListener("online", checkDatabase)
